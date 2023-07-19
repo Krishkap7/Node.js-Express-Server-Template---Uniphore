@@ -1,0 +1,27 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number</title>
+</head>
+<body>
+    <h1>Random Number from Python Flask Server:</h1>
+    <p id="random-number-placeholder"></p>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const randomNumberPlaceholder = document.getElementById('random-number-placeholder');
+
+        // Make an HTTP request to the Flask server to get the random number
+        axios.get('http://localhost:5000/')
+            .then(response => {
+                const randomNumber = response.data.random_number;
+                randomNumberPlaceholder.textContent = randomNumber;
+            })
+            .catch(error => {
+                console.error('Error fetching random number:', error);
+            });
+    </script>
+</body>
+</html>
