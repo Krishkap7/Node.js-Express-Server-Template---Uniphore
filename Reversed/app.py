@@ -1,18 +1,20 @@
-# Python Flask Server Code (app.py)
-import os
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 import random
 
-app = Flask(__name__, template_folder='.')
-
-# Get the port number from the environment variable or use the default (5000)
-port = int(os.environ.get("FLASK_PORT", 5000))
-
-# Route to generate a random number and render it in the HTML template
-@app.route('/')
+app = Flask(__name__)
+CORS(app)
+# Route to generate a random number and return it as JSON
+@app.route('/random-number')
 def generate_random_number():
-    random_number = random.randint(1, 100)  # Generate a random number between 1 and 100
-    return render_template('index.html', random_number=random_number, flask_port=port)
+    num = random.randint(1, 100)  # Generate a random number between 1 and 100
+    return jsonify({'random_number': num})
+
+# Route to render the index.html template
+@app.route('/')
+def render_index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(port=port, debug=True)
+    #originally port 5000
+    app.run(port=5000, debug=True)

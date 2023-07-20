@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number:</title>
+</head>
+<body>
+    <h1>Random Number:</h1>
+    <p id="randomNumber">Loading...</p>
+
+    <script>
+        // JavaScript code to fetch the random number from the Node.js server
+        fetch('/random-number')
+            .then(response => response.json()) // Parse the response as JSON
+            .then(data => {
+                const random_number = data.random_number;
+                document.getElementById('randomNumber').textContent = 'Random Number: '+random_number;
+            })
+            .catch(error => {
+                console.log('Error fetching random number:', error);
+                document.getElementById('randomNumber').textContent = 'Error fetching random number';
+            });
+    </script>
+</body>
+</html>
